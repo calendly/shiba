@@ -1,7 +1,6 @@
 require "shiba/version"
 require "shiba/configure"
 require "shiba/connection"
-require "mysql2"
 require "pp"
 require "byebug" if ENV['SHIBA_DEBUG']
 
@@ -13,7 +12,7 @@ module Shiba
   def self.configure(options)
     return false if @connection_hash
 
-    configure_mysql_defaults(options)
+    # configure_mysql_defaults(options)
 
     @connection_hash = options.select { |k, v| [ 'default_file', 'default_group', 'server', 'username', 'database', 'host', 'password', 'port'].include?(k) }
     @main_config = Configure.read_config_file(options['config'], "config/shiba.yml")
