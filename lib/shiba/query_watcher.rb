@@ -34,6 +34,7 @@ module Shiba
     end
 
     def interpolate(sql, binds)
+      binds = binds.call if Proc === binds # dereference procs
       binds.each_with_index do |val, i|
         sql = sql.sub("$#{i +1}", ActiveRecord::Base.connection.quote(val))
       end
